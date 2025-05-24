@@ -17,5 +17,5 @@ int main(){
         prev2=prev;
         prev=curr;
     }
-    cout<<prev<<endl;
+    cout<<(n==1?prev2:prev)<<endl;
 }
