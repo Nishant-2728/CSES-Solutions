@@ -25,18 +25,15 @@ int main(){
     for(j=0;j<n;j++){
         cin>>c[j];
     }
-    vector<vector<long long int>>dp(n+1,vector<long long int>(x+1,0));
+    vector<long long int>dp(x+1,0);
+    dp[0]=1;
     for(j=0;j<n;j++){
-        dp[j][0]=1;
-    }
-    for(j=n-1;j>=0;j--){
         for(k=1;k<=x;k++){
-            dp[j][k]+=(dp[j+1][k])%M;
             if(k-c[j]>=0){
-                dp[j][k]+=(dp[j][k-c[j]]);
-                dp[j][k]%=M;
+                dp[k]+=dp[k-c[j]];
+                dp[k]%=M;
             }
         }
     }
-    cout<<dp[0][x]<<endl;
+    cout<<dp[x]<<endl;
 }
