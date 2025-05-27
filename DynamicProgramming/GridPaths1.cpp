@@ -9,16 +9,19 @@ int main(){
         cin>>S[j];
     }
     vector<vector<long long int>>dp(n,vector<long long int>(n,0));
-    dp[0][0]=1;
+    if(S[0][0]!='*')
+        dp[0][0]=1;
     for(int j=0;j<n;j++){
         for(int k=0;k<n;k++){
-            if(j-1>=0 && S[j-1][k]!='*'){
-                dp[j][k]+=dp[j-1][k];
-                dp[j][k]%=M;
-            }
-            if(k-1>=0 && S[j][k-1]!='*'){
-                dp[j][k]+=dp[j][k-1];
-                dp[j][k]%=M;
+            if(S[j][k]!='*'){
+                if(j-1>=0){
+                    dp[j][k]+=dp[j-1][k];
+                    dp[j][k]%=M;
+                }
+                if(k-1>=0){
+                    dp[j][k]+=dp[j][k-1];
+                    dp[j][k]%=M;
+                }
             }
         }
     }
