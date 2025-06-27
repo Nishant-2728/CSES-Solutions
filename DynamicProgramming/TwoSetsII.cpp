@@ -15,6 +15,24 @@ long long int Countways(long long int val,long long int sum,vector<vector<long l
     total=(total+Countways(val-1,sum,dp))%M;
     return dp[val][sum]=total;
 }
+long long int powi(long long int x,long long int n){
+    long long int ans=1;
+    x%=M;
+    while(n){
+        if(n%2){
+            ans=(ans*x)%M;
+            n--;
+        }
+        else{
+            x=(x*x)%M;
+            n/=2;
+        }
+    }
+    return ans;
+}
+long long int modinverse(long long int m){
+    return powi(m,M-2);
+}
 int main(){
     long long int n;
     cin>>n;
@@ -35,11 +53,11 @@ int main(){
                     total=(total+prev[k-j])%M;
                 }
                 total=(total+prev[k])%M;
-               curr[k]=total;
+                curr[k]=total;
             }
             prev=curr;
         }
-        cout<<prev[sum/2]/2<<endl;
+        cout<<(prev[sum/2]*modinverse(2))%M<<endl;
     }
     
 }
