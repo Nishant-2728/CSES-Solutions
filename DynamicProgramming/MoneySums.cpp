@@ -26,6 +26,7 @@ int main(){
     vector<bool>prev(sum+1,false);
     prev[a[0]]=true;
     prev[0]=true;
+    count=1;
     for(j=1;j<n;j++){
         count=0;
         vector<bool>curr(sum+1,false);
