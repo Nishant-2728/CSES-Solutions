@@ -16,13 +16,13 @@ int main(){
     dist[1]=0LL;
     while(!pq.empty()){
         int node=pq.top().second;
-        int dis=pq.top().first;
+        long long int dis=pq.top().first;
         pq.pop();
         for(auto it:adj[node]){
             int node=it.first;
             int edgeweight=it.second;
-            if(dist[node]>dis+edgeweight){
-                dist[node]=dis+edgeweight;
+            if(dist[node]>dis+1LL*edgeweight){
+                dist[node]=dis+1LL*edgeweight;
                 pq.push({dist[node],node});
             }
         }
