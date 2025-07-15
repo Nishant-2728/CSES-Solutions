@@ -16,7 +16,6 @@ bool dfs(int node,vector<int>&vis,vector<int>&pathvis,vector<int>&par,vector<int
                 cyclepath.push_back(par[x]);
                 x=par[x];
             }
-            cyclepath.push_back(node);
             return true;
         }
     }
@@ -48,6 +47,8 @@ int main(){
         cout<<"IMPOSSIBLE"<<endl;
     }
     else{
+        reverse(cyclepath.begin(),cyclepath.end());
+        cyclepath.push_back(cyclepath[0]);
         cout<<cyclepath.size()<<endl;
         for(auto it:cyclepath){
             cout<<it<<" ";
