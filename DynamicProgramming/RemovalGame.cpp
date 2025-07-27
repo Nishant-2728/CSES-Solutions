@@ -30,25 +30,22 @@ int main(){
     for(int j=0;j<N;j++){
         cin>>a[j];
     }
-    vector<vector<vector<long long int>>>dp(N,vector<vector<long long int>>(N,vector<long long int>(2,0)));
-    for(int j=0;j<N;j++){
-        dp[j][j][0]=a[j];
-    }
+   vector<long long int>prev1(N,0),prev2(N,0);
+    prev1[N-1]=a[N-1];
     for(int start=N-2;start>=0;start--){
-        for(int end=1;end<N;end++){
-            for(int turn=0;turn<2;turn++){
-                long long int first=0,last=0;
-                if(turn==0){
-                    first=a[start]+dp[start+1][end][1];
-                    last=a[end]+dp[start][end-1][1];
-                    return dp[start][end][turn]=max(first,last);
-                }
-            else if(turn==1){
-                first=Maxscore(a,start+1,end,0,dp);
-                last=Maxscore(a,start,end-1,0,dp);
-                return dp[start][end][turn]=min(first,last);
-            }
-            }
+        vector<long long int>curr1(N,0),curr2(N,0);
+        curr1[start]=a[start];
+        for(int end=start+1;end<N;end++){
+            long long int first=0,last=0;
+            first=1LL*a[start]+prev2[end];
+            last=1LL*a[end]+curr2[end-1];
+            curr1[end]=max(first,last);
+            first=prev1[end];
+            last=curr1[end-1];
+            curr2[end]=min(first,last);    
         }
+        prev1=curr1;
+        prev2=curr2;
     }
+    cout<<prev1[N-1]<<endl;
 }
