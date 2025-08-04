@@ -37,7 +37,7 @@ int main(){
     if(flag==0){
         cout<<"IMPOSSIBLE"<<endl;
     }
-    else if(adj[1].size()-indegree[1]!=1 && indegree[n]-adj[n].size()!=1){
+    else if(adj[1].size()-indegree[1]!=1 || indegree[n]-adj[n].size()!=1){
         cout<<"IMPOSSIBLE"<<endl;
     }
     else{
