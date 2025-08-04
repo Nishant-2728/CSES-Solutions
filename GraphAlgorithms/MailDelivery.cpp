@@ -22,7 +22,7 @@ int main(){
     }
     int count=0;
     for(int j=1;j<=n;j++){
-        if(adj[j].size()%2){
+        if(adj[j].size()%2 || adj[j].size()==0){
             count++;
         }
     }
