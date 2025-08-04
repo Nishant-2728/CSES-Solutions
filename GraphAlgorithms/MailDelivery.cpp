@@ -22,7 +22,7 @@ int main(){
     }
     int count=0;
     for(int j=1;j<=n;j++){
-        if(adj[j].size()%2 || adj[j].size()==0){
+        if(adj[j].size()%2){
             count++;
         }
     }
@@ -32,8 +32,20 @@ int main(){
     else{
         vector<int>ans;
         dfs(1,adj,ans);
-        for(auto it:ans){
-            cout<<it<<" ";
+        int flag=1;
+        for(int j=1;j<=n;j++){
+            if(adj[j].size()>0){
+                flag=0;
+                break;
+            }
+        }
+        if(flag){
+            for(auto it:ans){
+                cout<<it<<" ";
+            }
+        }
+        else{
+            cout<<"IMPOSSIBLE";
         }
         cout<<endl;
     }
