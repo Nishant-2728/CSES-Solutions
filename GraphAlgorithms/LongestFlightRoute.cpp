@@ -12,17 +12,22 @@ int main(){
     vector<int>parent(n+1,0);
     dist[1]=0;
     parent[1]=-1;
-    priority_queue<pair<int,int>>q;
-    q.push({0,1});
+    set<pair<int,int>>q;
+    q.insert({0,1});
     while(!q.empty()){
-        int node=q.top().second;
-        int dis=q.top().first;
-        q.pop();
+        auto it=q.end();
+        it--;
+        int node=it->second;
+        int dis=it->first;
+        q.erase(it);
         for(auto it:adj[node]){
             if(dist[it]<dis+1){
+                if(dist[it]!=0){
+                    q.erase({dist[it],it});
+                }
                 dist[it]=dis+1;
                 parent[it]=node;
-                q.push({dist[it],it});
+                q.insert({dist[it],it});
             }
         }
     }
