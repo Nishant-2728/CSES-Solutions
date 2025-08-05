@@ -7,12 +7,12 @@ void Djikstra(int startnode,vector<pair<int,int>>adj[],vector<long long int>&dis
     while(!st.empty()){
         auto it=st.begin();
         int node=it->second;
-        int distance=it->first;
+        long long int distance=it->first;
         st.erase(it);
         for(auto it1:adj[node]){
             int adjNode=it1.first;
             int edgewt=it1.second;
-            if(dist[adjNode]>distance+edgewt){
+            if(dist[adjNode]>distance+1LL*edgewt){
                 if(dist[adjNode]!=1e18){
                     st.erase({dist[adjNode],adjNode});
                 }
