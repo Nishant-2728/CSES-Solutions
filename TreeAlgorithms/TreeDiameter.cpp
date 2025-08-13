@@ -20,7 +20,7 @@ int main(){
     }
     vector<int>dist1(N+1,0);
     dfs(1,adj,dist1,-1);
-    int node=-1,d=0;
+    int node=1,d=0;
     for(int j=1;j<=N;j++){
         if(dist1[j]>d){
             d=dist1[j];
