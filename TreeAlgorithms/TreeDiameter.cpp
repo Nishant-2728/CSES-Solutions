@@ -1,11 +1,27 @@
 #include<bits/stdc++.h>
 using namespace std;
-void dfs(int node,vector<int>adj[],vector<int>&dist,int par){
+void dfs(int node,vector<int>adj[],vector<int>&dia,vector<int>&downpath,int par){
+    int maxi1=0,maxi2=0,cnt=0;
     for(auto it:adj[node]){
         if(it!=par){
-            dist[it]=dist[node]+1;
-            dfs(it,adj,dist,node);
+           cnt++;
+           dfs(it,adj,dia,downpath,node);
+           downpath[node]=max(downpath[node],downpath[it]+1);
+           dia[node]=max(dia[node],dia[it]);
+           if(downpath[it]>maxi1){
+                maxi2=maxi1;
+                maxi1=downpath[it];
+           }
+           else if(downpath[it]>maxi2){
+                maxi2=downpath[it];
+           }
         }
+    }
+    if(cnt==1){
+        dia[node]=max(dia[node],1+maxi1);
+    }
+    else if(cnt>=2){
+        dia[node]=max(dia[node],2+maxi1+maxi2);
     }
 }
 int main(){
@@ -18,20 +34,8 @@ int main(){
         adj[u].push_back(v);
         adj[v].push_back(u);
     }
-    vector<int>dist1(N+1,0);
-    dfs(1,adj,dist1,-1);
-    int node=1,d=0;
-    for(int j=1;j<=N;j++){
-        if(dist1[j]>d){
-            d=dist1[j];
-            node=j;
-        }
-    }
-    vector<int>dist2(N+1,0);
-    dfs(node,adj,dist2,-1);
-    int dia=0;
-    for(int j=1;j<=N;j++){
-        dia=max(dia,dist2[j]);
-    }
-    cout<<dia<<endl;
+    vector<int>dia(N+1,0);
+    vector<int>downpath(N+1,0);
+    dfs(1,adj,dia,downpath,-1);
+    cout<<dia[1]<<endl;
 }
