@@ -5,7 +5,7 @@ int dfs(int node,vector<int>adj[],vector<int>&vis,vector<int>&down,vector<int>&s
     for(auto it:adj[node]){
         if(!vis[it]){
             down[node]+=dfs(it,adj,vis,down,sumofdistances);
-            sumofdistances[node]+=sumofdistances[it]+down[it];
+            sumofdistances[node]+=1LL*sumofdistances[it]+1LL*down[it];
         }
     }
     down[node]++;
@@ -15,7 +15,7 @@ void dfs1(int node,vector<int>adj[],vector<int>&vis,vector<int>&down,vector<int>
     vis[node]=1;
     for(auto it:adj[node]){
         if(!vis[it]){
-            sumofdistances[it]=sumofdistances[node]-down[it]+n-down[it];
+            sumofdistances[it]=1LL*sumofdistances[node]-1LL*down[it]+1LL*n-1LL*down[it];
             dfs1(it,adj,vis,down,sumofdistances,n);
         }
     }
@@ -30,7 +30,7 @@ int main(){
         adj[u].push_back(v);
         adj[v].push_back(u);
     }
-    vector<int>sumofdistances(N+1,0);
+    vector<long long int>sumofdistances(N+1,0);
     vector<int>down(N+1,0);
     vector<int>vis(N+1,0);
     vector<int>vis1(N+1,0);
