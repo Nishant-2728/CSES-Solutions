@@ -1,14 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
-void dfs(int node,vector<int>adj[],vector<int>&level,int par){
-    for(auto it:adj[node]){
-        if(it!=par){
-            level[it]=level[node]+1;
-            dfs(it,adj,level,node);
-        }
-    }
-}
-void binary_lifting(int node,vector<vector<int>>&up,vector<int>adj[],int par){
+void binary_lifting(int node,vector<vector<int>>&up,vector<int>adj[],vector<int>&level,int par){
     up[node][0]=par;
     for(int j=1;j<20;j++){
         if(up[node][j-1]!=-1){
@@ -17,7 +9,8 @@ void binary_lifting(int node,vector<vector<int>>&up,vector<int>adj[],int par){
     }
     for(auto it:adj[node]){
         if(it!=par){
-            binary_lifting(it,up,adj,node);
+            level[it]=level[node]+1;
+            binary_lifting(it,up,adj,level,node);
         }
     }
 }
@@ -59,9 +52,8 @@ int main(){
         adj[v].push_back(u);
     }
     vector<vector<int>>up(N+1,vector<int>(20,-1));
-    binary_lifting(1,up,adj,-1);
     vector<int>level(N+1,0);
-    dfs(1,adj,level,-1);
+    binary_lifting(1,up,adj,level,-1);
     while(Q--){
         int u,v;
         cin>>u>>v;
